@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  data_collector:
+    image: downil/netstat_monitoring:data_collector-latest # при локальной разворачивании нужно будет прописать загруженный контейнер
+    container_name: data_collector
+    volumes:
+      - ./data:/opt/data/
+      - ./source_list:/opt/source_list
+
+  excel_creator:
+    image: downil/netstat_monitoring:excel_creator-latest # при локальной разворачивании нужно будет прописать загруженный контейнер
+    container_name: excel_creator
+    depends_on:
+      - data_collector
+    volumes:
+      - ./excel:/opt/output
+      - ./data:/opt/data/
+    
+  dash_viz:
+    image: downil/netstat_monitoring:dash_viz-latest # при локальной разворачивании нужно будет прописать загруженный контейнер
+    depends_on:
+      - data_collector
+    container_name: dash_viz
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/opt/data/
