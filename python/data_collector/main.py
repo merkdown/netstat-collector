@@ -34,7 +34,14 @@ def collectData():
     current_data = readJSON("/opt/data/data.json")
 
     for ip in source:
-        new_data = getData(ip)["connections"]
+
+        new_data = getData(ip)
+        if new_data != 0:
+            new_data= new_data["connections"]
+
+        else:
+            continue
+
         if ip not in current_data:
             current_data[ip] = []
         
