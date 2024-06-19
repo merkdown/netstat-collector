@@ -25,7 +25,7 @@ type Connection struct {
 // Структура вывода в веб интерфейс
 type NetstatData struct {
 	LastUpdated time.Time    `json:"update"` // нужно было при разработке, можно в теории убрать и упростить структуру
-	Connections []Connection `json:"connenctions"`
+	Connections []Connection `json:"connections"`
 }
 
 var (
